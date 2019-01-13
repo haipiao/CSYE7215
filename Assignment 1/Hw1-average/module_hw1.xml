@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_hw1" default="compile.module.hw1">
+  <dirname property="module.hw1.basedir" file="${ant.file.module_hw1}"/>
+  
+  <property name="module.jdk.home.hw1" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.hw1" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.hw1" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.hw1" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="hw1.output.dir" value="${module.hw1.basedir}/out/production/Hw1"/>
+  <property name="hw1.testoutput.dir" value="${module.hw1.basedir}/out/test/Hw1"/>
+  
+  <path id="hw1.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="hw1.module.production.classpath">
+    <path refid="${module.jdk.classpath.hw1}"/>
+    <pathelement location="${basedir}/../junit-4.6.jar"/>
+  </path>
+  
+  <path id="hw1.runtime.production.module.classpath">
+    <pathelement location="${hw1.output.dir}"/>
+    <pathelement location="${basedir}/../junit-4.6.jar"/>
+  </path>
+  
+  <path id="hw1.module.classpath">
+    <path refid="${module.jdk.classpath.hw1}"/>
+    <pathelement location="${hw1.output.dir}"/>
+    <pathelement location="${basedir}/../junit-4.6.jar"/>
+  </path>
+  
+  <path id="hw1.runtime.module.classpath">
+    <pathelement location="${hw1.testoutput.dir}"/>
+    <pathelement location="${hw1.output.dir}"/>
+    <pathelement location="${basedir}/../junit-4.6.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.hw1">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.hw1">
+    <patternset refid="excluded.from.module.hw1"/>
+  </patternset>
+  
+  <path id="hw1.module.sourcepath">
+    <dirset dir="${module.hw1.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.hw1" depends="compile.module.hw1.production,compile.module.hw1.tests" description="Compile module Hw1"/>
+  
+  <target name="compile.module.hw1.production" depends="register.custom.compilers" description="Compile module Hw1; production classes">
+    <mkdir dir="${hw1.output.dir}"/>
+    <javac2 destdir="${hw1.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.hw1}/javac">
+      <compilerarg line="${compiler.args.hw1}"/>
+      <bootclasspath refid="hw1.module.bootclasspath"/>
+      <classpath refid="hw1.module.production.classpath"/>
+      <src refid="hw1.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.hw1"/>
+    </javac2>
+    
+    <copy todir="${hw1.output.dir}">
+      <fileset dir="${module.hw1.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.hw1.tests" depends="register.custom.compilers,compile.module.hw1.production" description="compile module Hw1; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.hw1" description="cleanup module">
+    <delete dir="${hw1.output.dir}"/>
+    <delete dir="${hw1.testoutput.dir}"/>
+  </target>
+</project>

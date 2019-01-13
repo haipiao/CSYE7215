@@ -1,0 +1,1573 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>Logging - akka.event.Logging</title>
+          <meta name="description" content="Logging - akka.event.Logging" />
+          <meta name="keywords" content="Logging akka.event.Logging" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../lib/template.js"></script>
+      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
+      <script type="text/javascript" src="../../lib/modernizr.custom.js"></script><script type="text/javascript" src="../../lib/diagrams.js" id="diagrams-js"></script>
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../index.html';
+            var hash = 'akka.event.Logging$';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Object" src="../../lib/object_big.png" />
+        <p id="owner"><a href="../package.html" class="extype" name="akka">akka</a>.<a href="package.html" class="extype" name="akka.event">event</a></p>
+        <h1>Logging</h1><h3><span class="morelinks"><div>Related Doc:
+            <a href="package.html" class="extype" name="akka.event">package event</a>
+          </div></span></h3><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Logging</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Main entry point for Akka logging: log levels and message types (aka
+channels) defined for the main transport medium, the main event bus. The
+recommended use is to obtain an implementation of the Logging trait with
+suitable and efficient methods for generating log events:</p><p><pre>
+<code>
+val log = Logging(&lt;bus&gt;, &lt;source object&gt;)
+...
+log.info("hello world!")
+</code>
+</pre></p><p>The source object is used in two fashions: its <code>Class[_]</code> will be part of
+all log events produced by this logger, plus a string representation is
+generated which may contain per-instance information, see <code>apply</code> or <code>create</code>
+below.</p><p>Loggers are attached to the level-specific channels <code>Error</code>,
+<code>Warning</code>, <code>Info</code> and <code>Debug</code> as
+appropriate for the configured (or set) log level. If you want to implement
+your own, make sure to handle these four event types plus the <code>InitializeLogger</code>
+message which is sent before actually attaching it to the logging bus.</p><p>Logging is configured by setting (some of) the following:</p><p><pre>
+<code>
+akka {
+  loggers = ["akka.slf4j.Slf4jLogger"] # for example
+  loglevel = "INFO"        # used when normal logging ("loggers") has been started
+  stdout-loglevel = "WARN" # used during application start-up until normal logging is available
+}
+</code>
+</pre>
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="http://github.com/akka/akka/tree/v2.4.20//akka-actor/src/main/scala/akka/event/Logging.scala" target="_blank">Logging.scala</a></dd></dl><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Any" class="extype" target="_top">Any</a></div>
+        </div><div class="toggleContainer block diagram-container" id="content-diagram-container">
+                <span class="toggle diagram-link">Content Hierarchy</span>
+                <div class="diagram" id="content-diagram"><svg class="package-diagram" id="graph1" viewBox="0.00 0.00 903.00 282.00" height="282pt" width="903pt" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g transform="scale(1 1) rotate(0) translate(4 278)" class="graph" id="graph0"><polygon points="-4,4 -4,-278 899,-278 899,4 -4,4" stroke="white" fill="white"></polygon><!-- node0 --><g class="node class" id="graph1_0"><g id="a_class|graph1_0"><a xlink:title="akka.event.Logging.DefaultLogger" xlink:href="Logging$$DefaultLogger.html#inheritance-diagram"><polygon points="106.25,-212 -0.25,-212 -0.25,-186 106.25,-186 106.25,-212" stroke="#115f3b" fill="#0a955b"></polygon><image xlink:href="../../lib/class_diagram.png" y="-205" x="12" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-194.75" x="31.6997" text-anchor="start">DefaultLogger</text></a></g></g><!-- node1 --><g class="node class" id="graph1_1"><g id="a_class|graph1_1"><a xlink:title="akka.event.Logging.StandardOutLogger" xlink:href="Logging$$StandardOutLogger.html#inheritance-diagram"><polygon points="257,-212 125,-212 125,-186 257,-186 257,-212" stroke="#115f3b" fill="#0a955b"></polygon><image xlink:href="../../lib/class_diagram.png" y="-205" x="137" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-194.75" x="156.69" text-anchor="start">StandardOutLogger</text></a></g></g><!-- node2 --><g class="node trait" id="graph1_2"><g id="a_trait|graph1_2"><a xlink:title="akka.event.Logging.StdOutLogger" xlink:href="Logging$$StdOutLogger.html#inheritance-diagram"><polygon points="175.25,-274 68.75,-274 68.75,-248 175.25,-248 175.25,-274" stroke="#37657d" fill="#498aad"></polygon><image xlink:href="../../lib/trait_diagram.png" y="-267" x="81" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-256.75" x="100.978" text-anchor="start">StdOutLogger</text></a></g></g><!-- node2&#45;&gt;node0 --><g class="edge inheritance" id="graph1_2_0"><g id="a_inheritance|graph1_2_0"><a xlink:title="DefaultLogger is a subtype of StdOutLogger"><path d="M104.24,-244.556C92.634,-234.464 77.6924,-221.472 66.9424,-212.124" stroke="#d4d4d4" fill="none"></path><polygon points="103.115,-245.898 108.037,-247.858 105.412,-243.257 103.115,-245.898" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node2&#45;&gt;node1 --><g class="edge inheritance" id="graph1_2_1"><g id="a_inheritance|graph1_2_1"><a xlink:title="StandardOutLogger is a subtype of StdOutLogger"><path d="M139.76,-244.556C151.366,-234.464 166.308,-221.472 177.058,-212.124" stroke="#d4d4d4" fill="none"></path><polygon points="138.588,-243.257 135.963,-247.858 140.885,-245.898 138.588,-243.257" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node3 --><g class="node object" id="graph1_3"><g id="a_object|graph1_3"><a xlink:title="akka.event.Logging.LoggerInitialized" xlink:href="Logging$$LoggerInitialized$.html#inheritance-diagram"><polygon points="392.25,-212 275.75,-212 275.75,-186 392.25,-186 392.25,-212" stroke="#102966" fill="#3556a7"></polygon><image xlink:href="../../lib/object_diagram.png" y="-205" x="288" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-194.75" x="307.697" text-anchor="start">LoggerInitialized</text></a></g></g><!-- node4 --><g class="node class" id="graph1_4"><g id="a_class|graph1_4"><a xlink:title="akka.event.Logging.LoggerInitialized" xlink:href="Logging$$LoggerInitialized.html#inheritance-diagram"><polygon points="392.25,-274 275.75,-274 275.75,-248 392.25,-248 392.25,-274" stroke="#115f3b" fill="#0a955b"></polygon><image xlink:href="../../lib/class_diagram.png" y="-267" x="288" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-256.75" x="307.697" text-anchor="start">LoggerInitialized</text></a></g></g><!-- node4&#45;&gt;node3 --><g class="edge inheritance" id="graph1_4_3"><g id="a_inheritance|graph1_4_3"><a xlink:title="LoggerInitialized is a subtype of LoggerInitialized"><path d="M334,-242.683C334,-232.896 334,-220.903 334,-212.124" stroke="#d4d4d4" fill="none"></path><polygon points="332.25,-242.858 334,-247.858 335.75,-242.858 332.25,-242.858" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node5 --><g class="node trait" id="graph1_5"><g id="a_trait|graph1_5"><a xlink:title="akka.event.Logging.LogEventWithMarker" xlink:href="Logging$$LogEventWithMarker.html#inheritance-diagram"><polygon points="805,-150 667,-150 667,-124 805,-124 805,-150" stroke="#37657d" fill="#498aad"></polygon><image xlink:href="../../lib/trait_diagram.png" y="-143" x="679" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-132.75" x="698.926" text-anchor="start">LogEventWithMarker</text></a></g></g><!-- node6 --><g class="node class" id="graph1_6"><g id="a_class|graph1_6"><a xlink:title="akka.event.Logging.Debug3" xlink:href="Logging$$Debug3.html#inheritance-diagram"><polygon points="631.25,-26 552.75,-26 552.75,-0 631.25,-0 631.25,-26" stroke="#115f3b" fill="#0a955b"></polygon><image xlink:href="../../lib/class_diagram.png" y="-19" x="565" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-8.74951" x="584.596" text-anchor="start">Debug3</text></a></g></g><!-- node5&#45;&gt;node6 --><g class="edge inheritance" id="graph1_5_6"><g id="a_inheritance|graph1_5_6"><a xlink:title="Debug3 is a subtype of LogEventWithMarker"><path d="M731.24,-119.142C725.83,-102.68 715.536,-77.8564 699,-62 680.19,-43.9629 653.44,-31.9629 631.392,-24.4722" stroke="#d4d4d4" fill="none"></path><polygon points="729.589,-119.723 732.764,-123.963 732.926,-118.668 729.589,-119.723" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node9 --><g class="node class" id="graph1_9"><g id="a_class|graph1_9"><a xlink:title="akka.event.Logging.Info3" xlink:href="Logging$$Info3.html#inheritance-diagram"><polygon points="578.25,-88 511.75,-88 511.75,-62 578.25,-62 578.25,-88" stroke="#115f3b" fill="#0a955b"></polygon><image xlink:href="../../lib/class_diagram.png" y="-81" x="524" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-70.7495" x="543.99" text-anchor="start">Info3</text></a></g></g><!-- node5&#45;&gt;node9 --><g class="edge inheritance" id="graph1_5_9"><g id="a_inheritance|graph1_5_9"><a xlink:title="Info3 is a subtype of LogEventWithMarker"><path d="M692.342,-122.285C657.744,-111.417 610.12,-96.4566 578.488,-86.5199" stroke="#d4d4d4" fill="none"></path><polygon points="692.054,-124.029 697.348,-123.858 693.103,-120.69 692.054,-124.029" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node12 --><g class="node class" id="graph1_12"><g id="a_class|graph1_12"><a xlink:title="akka.event.Logging.Warning3" xlink:href="Logging$$Warning3.html#inheritance-diagram"><polygon points="690.25,-88 603.75,-88 603.75,-62 690.25,-62 690.25,-88" stroke="#115f3b" fill="#0a955b"></polygon><image xlink:href="../../lib/class_diagram.png" y="-81" x="616" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-70.7495" x="635.897" text-anchor="start">Warning3</text></a></g></g><!-- node5&#45;&gt;node12 --><g class="edge inheritance" id="graph1_5_12"><g id="a_inheritance|graph1_5_12"><a xlink:title="Warning3 is a subtype of LogEventWithMarker"><path d="M713.481,-120.819C698.458,-110.691 678.97,-97.5529 664.984,-88.1238" stroke="#d4d4d4" fill="none"></path><polygon points="712.865,-122.514 717.99,-123.858 714.822,-119.612 712.865,-122.514" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node15 --><g class="node class" id="graph1_15"><g id="a_class|graph1_15"><a xlink:title="akka.event.Logging.Error3" xlink:href="Logging$$Error3.html#inheritance-diagram"><polygon points="878,-88 806,-88 806,-62 878,-62 878,-88" stroke="#115f3b" fill="#0a955b"></polygon><image xlink:href="../../lib/class_diagram.png" y="-81" x="818" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-70.7495" x="837.719" text-anchor="start">Error3</text></a></g></g><!-- node5&#45;&gt;node15 --><g class="edge inheritance" id="graph1_5_15"><g id="a_inheritance|graph1_5_15"><a xlink:title="Error3 is a subtype of LogEventWithMarker"><path d="M761.899,-121.34C779.911,-111.145 803.636,-97.7155 820.581,-88.1238" stroke="#d4d4d4" fill="none"></path><polygon points="760.94,-119.872 757.451,-123.858 762.664,-122.918 760.94,-119.872" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node7 --><g class="node class" id="graph1_7"><g id="a_class|graph1_7"><a xlink:title="akka.event.Logging.Debug2" xlink:href="Logging$$Debug2.html#inheritance-diagram"><polygon points="489.25,-88 410.75,-88 410.75,-62 489.25,-62 489.25,-88" stroke="#115f3b" fill="#0a955b"></polygon><image xlink:href="../../lib/class_diagram.png" y="-81" x="423" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-70.7495" x="442.596" text-anchor="start">Debug2</text></a></g></g><!-- node7&#45;&gt;node6 --><g class="edge inheritance" id="graph1_7_6"><g id="a_inheritance|graph1_7_6"><a xlink:title="Debug3 is a subtype of Debug2"><path d="M483.475,-59.8556C507.744,-49.601 540.222,-35.8781 563.307,-26.1238" stroke="#d4d4d4" fill="none"></path><polygon points="482.66,-58.3 478.736,-61.8581 484.023,-61.524 482.66,-58.3" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node8 --><g class="node class" id="graph1_8"><g id="a_class|graph1_8"><a xlink:title="akka.event.Logging.Debug" xlink:href="Logging$$Debug.html#inheritance-diagram"><polygon points="485,-212 411,-212 411,-186 485,-186 485,-212" stroke="#115f3b" fill="#0a955b"></polygon><image xlink:href="../../lib/class_diagram.png" y="-205" x="423" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-194.75" x="442.877" text-anchor="start">Debug</text></a></g></g><!-- node8&#45;&gt;node7 --><g class="edge inheritance" id="graph1_8_7"><g id="a_inheritance|graph1_8_7"><a xlink:title="Debug2 is a subtype of Debug"><path d="M448.281,-180.848C448.692,-155.816 449.444,-109.891 449.802,-88.0947" stroke="#d4d4d4" fill="none"></path><polygon points="446.531,-180.828 448.199,-185.856 450.031,-180.886 446.531,-180.828" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node10 --><g class="node class" id="graph1_10"><g id="a_class|graph1_10"><a xlink:title="akka.event.Logging.Info2" xlink:href="Logging$$Info2.html#inheritance-diagram"><polygon points="543.25,-150 476.75,-150 476.75,-124 543.25,-124 543.25,-150" stroke="#115f3b" fill="#0a955b"></polygon><image xlink:href="../../lib/class_diagram.png" y="-143" x="489" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-132.75" x="508.99" text-anchor="start">Info2</text></a></g></g><!-- node10&#45;&gt;node9 --><g class="edge inheritance" id="graph1_10_9"><g id="a_inheritance|graph1_10_9"><a xlink:title="Info3 is a subtype of Info2"><path d="M519.629,-119.493C525.42,-109.565 532.665,-97.1465 537.928,-88.1238" stroke="#d4d4d4" fill="none"></path><polygon points="518.091,-118.657 517.083,-123.858 521.114,-120.421 518.091,-118.657" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node11 --><g class="node class" id="graph1_11"><g id="a_class|graph1_11"><a xlink:title="akka.event.Logging.Info" xlink:href="Logging$$Info.html#inheritance-diagram"><polygon points="564.25,-212 503.75,-212 503.75,-186 564.25,-186 564.25,-212" stroke="#115f3b" fill="#0a955b"></polygon><image xlink:href="../../lib/class_diagram.png" y="-205" x="516" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-194.75" x="535.771" text-anchor="start">Info</text></a></g></g><!-- node11&#45;&gt;node10 --><g class="edge inheritance" id="graph1_11_10"><g id="a_inheritance|graph1_11_10"><a xlink:title="Info2 is a subtype of Info"><path d="M527.182,-180.954C523.247,-171.118 518.394,-158.984 514.85,-150.124" stroke="#d4d4d4" fill="none"></path><polygon points="525.661,-181.866 529.143,-185.858 528.911,-180.566 525.661,-181.866" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node13 --><g class="node class" id="graph1_13"><g id="a_class|graph1_13"><a xlink:title="akka.event.Logging.Warning2" xlink:href="Logging$$Warning2.html#inheritance-diagram"><polygon points="648.25,-150 561.75,-150 561.75,-124 648.25,-124 648.25,-150" stroke="#115f3b" fill="#0a955b"></polygon><image xlink:href="../../lib/class_diagram.png" y="-143" x="574" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-132.75" x="593.897" text-anchor="start">Warning2</text></a></g></g><!-- node13&#45;&gt;node12 --><g class="edge inheritance" id="graph1_13_12"><g id="a_inheritance|graph1_13_12"><a xlink:title="Warning3 is a subtype of Warning2"><path d="M616.368,-119.761C623.348,-109.789 632.141,-97.2278 638.513,-88.1238" stroke="#d4d4d4" fill="none"></path><polygon points="614.933,-118.758 613.499,-123.858 617.8,-120.766 614.933,-118.758" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node14 --><g class="node class" id="graph1_14"><g id="a_class|graph1_14"><a xlink:title="akka.event.Logging.Warning" xlink:href="Logging$$Warning.html#inheritance-diagram"><polygon points="663.25,-212 582.75,-212 582.75,-186 663.25,-186 663.25,-212" stroke="#115f3b" fill="#0a955b"></polygon><image xlink:href="../../lib/class_diagram.png" y="-205" x="595" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-194.75" x="614.678" text-anchor="start">Warning</text></a></g></g><!-- node14&#45;&gt;node13 --><g class="edge inheritance" id="graph1_14_13"><g id="a_inheritance|graph1_14_13"><a xlink:title="Warning2 is a subtype of Warning"><path d="M617.886,-180.954C614.936,-171.118 611.295,-158.984 608.637,-150.124" stroke="#d4d4d4" fill="none"></path><polygon points="616.244,-181.572 619.357,-185.858 619.597,-180.566 616.244,-181.572" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node16 --><g class="node class" id="graph1_16"><g id="a_class|graph1_16"><a xlink:title="akka.event.Logging.Error2" xlink:href="Logging$$Error2.html#inheritance-diagram"><polygon points="895,-150 823,-150 823,-124 895,-124 895,-150" stroke="#115f3b" fill="#0a955b"></polygon><image xlink:href="../../lib/class_diagram.png" y="-143" x="835" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-132.75" x="854.719" text-anchor="start">Error2</text></a></g></g><!-- node16&#45;&gt;node15 --><g class="edge inheritance" id="graph1_16_15"><g id="a_inheritance|graph1_16_15"><a xlink:title="Error3 is a subtype of Error2"><path d="M854.17,-118.954C851.384,-109.118 847.945,-96.9839 845.435,-88.1238" stroke="#d4d4d4" fill="none"></path><polygon points="852.513,-119.525 855.56,-123.858 855.88,-118.57 852.513,-119.525" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node17 --><g class="node class" id="graph1_17"><g id="a_class|graph1_17"><a xlink:title="akka.event.Logging.Error" xlink:href="Logging$$Error.html#inheritance-diagram"><polygon points="839.25,-212 772.75,-212 772.75,-186 839.25,-186 839.25,-212" stroke="#115f3b" fill="#0a955b"></polygon><image xlink:href="../../lib/class_diagram.png" y="-205" x="785" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-194.75" x="805" text-anchor="start">Error</text></a></g></g><!-- node17&#45;&gt;node16 --><g class="edge inheritance" id="graph1_17_16"><g id="a_inheritance|graph1_17_16"><a xlink:title="Error2 is a subtype of Error"><path d="M820.109,-182.027C828.955,-172.014 840.177,-159.309 848.291,-150.124" stroke="#d4d4d4" fill="none"></path><polygon points="818.724,-180.952 816.725,-185.858 821.347,-183.269 818.724,-180.952" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node18 --><g class="node trait" id="graph1_18"><g id="a_trait|graph1_18"><a xlink:title="akka.event.Logging.LogEvent" xlink:href="Logging$$LogEvent.html#inheritance-diagram"><polygon points="666.25,-274 579.75,-274 579.75,-248 666.25,-248 666.25,-274" stroke="#37657d" fill="#498aad"></polygon><image xlink:href="../../lib/trait_diagram.png" y="-267" x="592" preserveAspectRatio="xMinYMin meet" height="12px" width="12px"></image><text fill="#ffffff" font-size="10.00" font-family="Arial" y="-256.75" x="611.983" text-anchor="start">LogEvent</text></a></g></g><!-- node18&#45;&gt;node5 --><g class="edge inheritance" id="graph1_18_5"><g id="a_inheritance|graph1_18_5"><a xlink:title="LogEventWithMarker is a subtype of LogEvent"><path d="M639.869,-244.141C649.478,-234.943 661.632,-223.031 672,-212 691.891,-190.835 713.765,-164.928 726.097,-150.057" stroke="#d4d4d4" fill="none"></path><polygon points="638.598,-242.935 636.187,-247.652 641.013,-245.468 638.598,-242.935" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node18&#45;&gt;node8 --><g class="edge inheritance" id="graph1_18_8"><g id="a_inheritance|graph1_18_8"><a xlink:title="Debug is a subtype of LogEvent"><path d="M582.847,-246.233C552.72,-235.904 511.88,-221.902 483.062,-212.021" stroke="#d4d4d4" fill="none"></path><polygon points="582.289,-247.892 587.586,-247.858 583.424,-244.581 582.289,-247.892" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node18&#45;&gt;node11 --><g class="edge inheritance" id="graph1_18_11"><g id="a_inheritance|graph1_18_11"><a xlink:title="Info is a subtype of LogEvent"><path d="M600.481,-244.819C585.458,-234.691 565.97,-221.553 551.984,-212.124" stroke="#d4d4d4" fill="none"></path><polygon points="599.865,-246.514 604.99,-247.858 601.822,-243.612 599.865,-246.514" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node18&#45;&gt;node14 --><g class="edge inheritance" id="graph1_18_14"><g id="a_inheritance|graph1_18_14"><a xlink:title="Warning is a subtype of LogEvent"><path d="M623,-242.683C623,-232.896 623,-220.903 623,-212.124" stroke="#d4d4d4" fill="none"></path><polygon points="621.25,-242.858 623,-247.858 624.75,-242.858 621.25,-242.858" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node18&#45;&gt;node17 --><g class="edge inheritance" id="graph1_18_17"><g id="a_inheritance|graph1_18_17"><a xlink:title="Error is a subtype of LogEvent"><path d="M665.172,-246.173C697.856,-235.457 742.518,-220.814 772.714,-210.913" stroke="#d4d4d4" fill="none"></path><polygon points="664.239,-244.637 660.033,-247.858 665.329,-247.963 664.239,-244.637" stroke="#d4d4d4" fill="none"></polygon></a></g></g></g></svg></div>
+              </div></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        <div id="order">
+              <span class="filtertype">Ordering</span>
+              <ol>
+                
+                <li class="alpha in"><span>Alphabetic</span></li>
+                <li class="inherit out"><span>By Inheritance</span></li>
+              </ol>
+            </div>
+        <div id="ancestors">
+                <span class="filtertype">Inherited<br />
+                </span>
+                <ol id="linearization">
+                  <li class="in" name="akka.event.Logging"><span>Logging</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                </ol>
+              </div><div id="ancestors">
+            <span class="filtertype"></span>
+            <ol>
+              <li class="hideall out"><span>Hide All</span></li>
+              <li class="showall in"><span>Show All</span></li>
+            </ol>
+          </div>
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="akka.event.Logging.Debug" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="DebugextendsLogging.LogEventwithProductwithSerializable"></a>
+      <a id="Debug:Debug"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$Debug.html"><span class="name">Debug</span></a><span class="params">(<span name="logSource">logSource: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="logClass">logClass: <span class="extype" name="scala.Predef.Class">Class</span>[_]</span>, <span name="message">message: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Any" class="extype" target="_top">Any</a> = <span class="symbol">&quot;&quot;</span></span>)</span><span class="result"> extends <a href="Logging$$LogEvent.html" class="extype" name="akka.event.Logging.LogEvent">LogEvent</a> with <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@DebugextendsLogging.LogEventwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">For DEBUG Logging
+</p>
+    </li><li name="akka.event.Logging.Debug2" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Debug2extendsLogging.Debug"></a>
+      <a id="Debug2:Debug2"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$Debug2.html"><span class="name">Debug2</span></a><span class="result"> extends <a href="Logging$$Debug.html" class="extype" name="akka.event.Logging.Debug">Debug</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@Debug2extendsLogging.Debug" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging.Debug3" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Debug3extendsLogging.Debug2withLogging.LogEventWithMarker"></a>
+      <a id="Debug3:Debug3"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$Debug3.html"><span class="name">Debug3</span></a><span class="result"> extends <a href="Logging$$Debug2.html" class="extype" name="akka.event.Logging.Debug2">Debug2</a> with <a href="Logging$$LogEventWithMarker.html" class="extype" name="akka.event.Logging.LogEventWithMarker">LogEventWithMarker</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@Debug3extendsLogging.Debug2withLogging.LogEventWithMarker" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging.DefaultLogger" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="DefaultLoggerextendsActorwithLogging.StdOutLoggerwithRequiresMessageQueue[akka.event.LoggerMessageQueueSemantics]"></a>
+      <a id="DefaultLogger:DefaultLogger"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$DefaultLogger.html"><span class="name">DefaultLogger</span></a><span class="result"> extends <a href="../actor/Actor.html" class="extype" name="akka.actor.Actor">Actor</a> with <a href="Logging$$StdOutLogger.html" class="extype" name="akka.event.Logging.StdOutLogger">StdOutLogger</a> with <a href="../dispatch/RequiresMessageQueue.html" class="extype" name="akka.dispatch.RequiresMessageQueue">RequiresMessageQueue</a>[<a href="LoggerMessageQueueSemantics.html" class="extype" name="akka.event.LoggerMessageQueueSemantics">LoggerMessageQueueSemantics</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@DefaultLoggerextendsActorwithLogging.StdOutLoggerwithRequiresMessageQueue[akka.event.LoggerMessageQueueSemantics]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Actor wrapper around the standard output logger.</p><div class="fullcomment"><div class="comment cmt"><p>Actor wrapper around the standard output logger. If
+<code>akka.loggers</code> is not set, it defaults to just this
+logger.
+</p></div></div>
+    </li><li name="akka.event.Logging.Error" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ErrorextendsLogging.LogEventwithProductwithSerializable"></a>
+      <a id="Error:Error"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$Error.html"><span class="name">Error</span></a><span class="params">(<span name="cause">cause: <span class="extype" name="scala.Throwable">Throwable</span></span>, <span name="logSource">logSource: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="logClass">logClass: <span class="extype" name="scala.Predef.Class">Class</span>[_]</span>, <span name="message">message: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Any" class="extype" target="_top">Any</a> = <span class="symbol">&quot;&quot;</span></span>)</span><span class="result"> extends <a href="Logging$$LogEvent.html" class="extype" name="akka.event.Logging.LogEvent">LogEvent</a> with <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@ErrorextendsLogging.LogEventwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">For ERROR Logging
+</p>
+    </li><li name="akka.event.Logging.Error2" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Error2extendsLogging.Error"></a>
+      <a id="Error2:Error2"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$Error2.html"><span class="name">Error2</span></a><span class="result"> extends <a href="Logging$$Error.html" class="extype" name="akka.event.Logging.Error">Error</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@Error2extendsLogging.Error" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging.Error3" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Error3extendsLogging.Error2withLogging.LogEventWithMarker"></a>
+      <a id="Error3:Error3"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$Error3.html"><span class="name">Error3</span></a><span class="result"> extends <a href="Logging$$Error2.html" class="extype" name="akka.event.Logging.Error2">Error2</a> with <a href="Logging$$LogEventWithMarker.html" class="extype" name="akka.event.Logging.LogEventWithMarker">LogEventWithMarker</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@Error3extendsLogging.Error2withLogging.LogEventWithMarker" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging.Info" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="InfoextendsLogging.LogEventwithProductwithSerializable"></a>
+      <a id="Info:Info"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$Info.html"><span class="name">Info</span></a><span class="params">(<span name="logSource">logSource: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="logClass">logClass: <span class="extype" name="scala.Predef.Class">Class</span>[_]</span>, <span name="message">message: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Any" class="extype" target="_top">Any</a> = <span class="symbol">&quot;&quot;</span></span>)</span><span class="result"> extends <a href="Logging$$LogEvent.html" class="extype" name="akka.event.Logging.LogEvent">LogEvent</a> with <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@InfoextendsLogging.LogEventwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">For INFO Logging
+</p>
+    </li><li name="akka.event.Logging.Info2" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Info2extendsLogging.Info"></a>
+      <a id="Info2:Info2"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$Info2.html"><span class="name">Info2</span></a><span class="result"> extends <a href="Logging$$Info.html" class="extype" name="akka.event.Logging.Info">Info</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@Info2extendsLogging.Info" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging.Info3" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Info3extendsLogging.Info2withLogging.LogEventWithMarker"></a>
+      <a id="Info3:Info3"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$Info3.html"><span class="name">Info3</span></a><span class="result"> extends <a href="Logging$$Info2.html" class="extype" name="akka.event.Logging.Info2">Info2</a> with <a href="Logging$$LogEventWithMarker.html" class="extype" name="akka.event.Logging.LogEventWithMarker">LogEventWithMarker</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@Info3extendsLogging.Info2withLogging.LogEventWithMarker" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging.InitializeLogger" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="InitializeLoggerextendsNoSerializationVerificationNeededwithProductwithSerializable"></a>
+      <a id="InitializeLogger:InitializeLogger"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$InitializeLogger.html"><span class="name">InitializeLogger</span></a><span class="params">(<span name="bus">bus: <a href="LoggingBus.html" class="extype" name="akka.event.LoggingBus">LoggingBus</a></span>)</span><span class="result"> extends <a href="../actor/NoSerializationVerificationNeeded.html" class="extype" name="akka.actor.NoSerializationVerificationNeeded">NoSerializationVerificationNeeded</a> with <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@InitializeLoggerextendsNoSerializationVerificationNeededwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Message which is sent to each default logger (i.e.</p><div class="fullcomment"><div class="comment cmt"><p>Message which is sent to each default logger (i.e. from configuration file)
+after its creation but before attaching it to the logging bus. The logger
+actor must handle this message, it can be used e.g. to register for more
+channels. When done, the logger must respond with a LoggerInitialized
+message. This is necessary to ensure that additional subscriptions are in
+effect when the logging system finished starting.
+</p></div></div>
+    </li><li name="akka.event.Logging.LogEvent" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="LogEventextendsNoSerializationVerificationNeeded"></a>
+      <a id="LogEvent:LogEvent"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$LogEvent.html"><span class="name">LogEvent</span></a><span class="result"> extends <a href="../actor/NoSerializationVerificationNeeded.html" class="extype" name="akka.actor.NoSerializationVerificationNeeded">NoSerializationVerificationNeeded</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@LogEventextendsNoSerializationVerificationNeeded" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Base type of LogEvents
+</p>
+    </li><li name="akka.event.Logging.LogEventException" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LogEventExceptionextendsThrowablewithNoStackTrace"></a>
+      <a id="LogEventException:LogEventException"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$LogEventException.html"><span class="name">LogEventException</span></a><span class="result"> extends <span class="extype" name="scala.Throwable">Throwable</span> with <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.util.control.NoStackTrace" class="extype" target="_top">NoStackTrace</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@LogEventExceptionextendsThrowablewithNoStackTrace" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Exception that wraps a LogEvent.</p>
+    </li><li name="akka.event.Logging.LogEventWithMarker" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="LogEventWithMarkerextendsLogging.LogEvent"></a>
+      <a id="LogEventWithMarker:LogEventWithMarker"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$LogEventWithMarker.html"><span class="name">LogEventWithMarker</span></a><span class="result"> extends <a href="Logging$$LogEvent.html" class="extype" name="akka.event.Logging.LogEvent">LogEvent</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@LogEventWithMarkerextendsLogging.LogEvent" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">INTERNAL API, Marker interface for LogEvents containing Markers, which can be set for example on an slf4j logger</p>
+    </li><li name="akka.event.Logging.LogLevel" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LogLevelextendsAnyValwithProductwithSerializable"></a>
+      <a id="LogLevel:LogLevel"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$LogLevel.html"><span class="name">LogLevel</span></a><span class="params">(<span name="asInt">asInt: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.AnyVal" class="extype" target="_top">AnyVal</a> with <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@LogLevelextendsAnyValwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Marker trait for annotating LogLevel, which must be Int after erasure.</p>
+    </li><li name="akka.event.Logging.LoggerException" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LoggerExceptionextendsAkkaException"></a>
+      <a id="LoggerException:LoggerException"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$LoggerException.html"><span class="name">LoggerException</span></a><span class="result"> extends <a href="../AkkaException.html" class="extype" name="akka.AkkaException">AkkaException</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@LoggerExceptionextendsAkkaException" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Artificial exception injected into Error events if no Throwable is
+supplied; used for getting a stack dump of error locations.</p>
+    </li><li name="akka.event.Logging.LoggerInitializationException" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LoggerInitializationExceptionextendsAkkaException"></a>
+      <a id="LoggerInitializationException:LoggerInitializationException"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$LoggerInitializationException.html"><span class="name">LoggerInitializationException</span></a><span class="result"> extends <a href="../AkkaException.html" class="extype" name="akka.AkkaException">AkkaException</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@LoggerInitializationExceptionextendsAkkaException" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">LoggerInitializationException is thrown to indicate that there was a problem initializing a logger</p>
+    </li><li name="akka.event.Logging.LoggerInitialized" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="LoggerInitializedextendsAnyRef"></a>
+      <a id="LoggerInitialized:LoggerInitialized"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$LoggerInitialized.html"><span class="name">LoggerInitialized</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@LoggerInitializedextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Response message each logger must send within 1 second after receiving the
+InitializeLogger request.</p><div class="fullcomment"><div class="comment cmt"><p>Response message each logger must send within 1 second after receiving the
+InitializeLogger request. If initialization takes longer, send the reply
+as soon as subscriptions are set-up.
+</p></div></div>
+    </li><li name="akka.event.Logging.MDC" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="MDC=Map[String,Any]"></a>
+      <a id="MDC:MDC"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">MDC</span><span class="result"> = <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.collection.immutable.Map" class="extype" target="_top">Map</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Any" class="extype" target="_top">Any</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@MDC=Map[String,Any]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging.StandardOutLogger" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="StandardOutLoggerextendsInternalActorRefwithMinimalActorRefwithLogging.StdOutLogger"></a>
+      <a id="StandardOutLogger:StandardOutLogger"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$StandardOutLogger.html"><span class="name">StandardOutLogger</span></a><span class="result"> extends <span class="extype" name="akka.actor.InternalActorRef">InternalActorRef</span> with <span class="extype" name="akka.actor.MinimalActorRef">MinimalActorRef</span> with <a href="Logging$$StdOutLogger.html" class="extype" name="akka.event.Logging.StdOutLogger">StdOutLogger</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@StandardOutLoggerextendsInternalActorRefwithMinimalActorRefwithLogging.StdOutLogger" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Actor-less logging implementation for synchronous logging to standard
+output.</p><div class="fullcomment"><div class="comment cmt"><p>Actor-less logging implementation for synchronous logging to standard
+output. This logger is always attached first in order to be able to log
+failures during application start-up, even before normal logging is
+started. Its log level can be defined by configuration setting
+<code>akka.stdout-loglevel</code>.
+</p></div></div>
+    </li><li name="akka.event.Logging.StdOutLogger" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="StdOutLoggerextendsAnyRef"></a>
+      <a id="StdOutLogger:StdOutLogger"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$StdOutLogger.html"><span class="name">StdOutLogger</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@StdOutLoggerextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging.Warning" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="WarningextendsLogging.LogEventwithProductwithSerializable"></a>
+      <a id="Warning:Warning"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$Warning.html"><span class="name">Warning</span></a><span class="params">(<span name="logSource">logSource: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="logClass">logClass: <span class="extype" name="scala.Predef.Class">Class</span>[_]</span>, <span name="message">message: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Any" class="extype" target="_top">Any</a> = <span class="symbol">&quot;&quot;</span></span>)</span><span class="result"> extends <a href="Logging$$LogEvent.html" class="extype" name="akka.event.Logging.LogEvent">LogEvent</a> with <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@WarningextendsLogging.LogEventwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">For WARNING Logging
+</p>
+    </li><li name="akka.event.Logging.Warning2" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Warning2extendsLogging.Warning"></a>
+      <a id="Warning2:Warning2"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$Warning2.html"><span class="name">Warning2</span></a><span class="result"> extends <a href="Logging$$Warning.html" class="extype" name="akka.event.Logging.Warning">Warning</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@Warning2extendsLogging.Warning" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging.Warning3" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Warning3extendsLogging.Warning2withLogging.LogEventWithMarker"></a>
+      <a id="Warning3:Warning3"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$Warning3.html"><span class="name">Warning3</span></a><span class="result"> extends <a href="Logging$$Warning2.html" class="extype" name="akka.event.Logging.Warning2">Warning2</a> with <a href="Logging$$LogEventWithMarker.html" class="extype" name="akka.event.Logging.LogEventWithMarker">LogEventWithMarker</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@Warning3extendsLogging.Warning2withLogging.LogEventWithMarker" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="scala.AnyRef#!=" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="!=(x$1:Any):Boolean"></a>
+      <a id="!=(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef###" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="##():Int"></a>
+      <a id="##():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Int" class="extype" target="_top">Int</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@##():Int" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#==" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="==(x$1:Any):Boolean"></a>
+      <a id="==(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@==(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="akka.event.Logging#AllLogLevels" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="AllLogLevels:scala.collection.immutable.Seq[akka.event.Logging.LogLevel]"></a>
+      <a id="AllLogLevels:Seq[LogLevel]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">AllLogLevels</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.collection.immutable.Seq" class="extype" target="_top">Seq</a>[<a href="Logging$$LogLevel.html" class="extype" name="akka.event.Logging.LogLevel">LogLevel</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@AllLogLevels:scala.collection.immutable.Seq[akka.event.Logging.LogLevel]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging.Debug" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Debug"></a>
+      <a id="Debug:Debug"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$Debug$.html"><span class="name">Debug</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@Debug" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging#DebugLevel" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="DebugLevel:akka.event.Logging.LogLevel"></a>
+      <a id="DebugLevel:LogLevel"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">DebugLevel</span><span class="result">: <a href="Logging$$LogLevel.html" class="extype" name="akka.event.Logging.LogLevel">LogLevel</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@DebugLevel:akka.event.Logging.LogLevel" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging.Error" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Error"></a>
+      <a id="Error:Error"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$Error$.html"><span class="name">Error</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@Error" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging#ErrorLevel" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ErrorLevel:akka.event.Logging.LogLevel"></a>
+      <a id="ErrorLevel:LogLevel"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ErrorLevel</span><span class="result">: <a href="Logging$$LogLevel.html" class="extype" name="akka.event.Logging.LogLevel">LogLevel</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@ErrorLevel:akka.event.Logging.LogLevel" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Log level in numeric form, used when deciding whether a certain log
+statement should generate a log event.</p><div class="fullcomment"><div class="comment cmt"><p>Log level in numeric form, used when deciding whether a certain log
+statement should generate a log event. Predefined levels are ErrorLevel (1)
+to DebugLevel (4). In case you want to add more levels, loggers need to
+be subscribed to their event bus channels manually.
+</p></div></div>
+    </li><li name="akka.event.Logging.Info" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Info"></a>
+      <a id="Info:Info"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$Info$.html"><span class="name">Info</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@Info" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging#InfoLevel" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="InfoLevel:akka.event.Logging.LogLevel"></a>
+      <a id="InfoLevel:LogLevel"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">InfoLevel</span><span class="result">: <a href="Logging$$LogLevel.html" class="extype" name="akka.event.Logging.LogLevel">LogLevel</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@InfoLevel:akka.event.Logging.LogLevel" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging.LogEvent" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LogEvent"></a>
+      <a id="LogEvent:LogEvent"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$LogEvent$.html"><span class="name">LogEvent</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@LogEvent" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging.LoggerInitialized" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LoggerInitialized"></a>
+      <a id="LoggerInitialized:LoggerInitialized"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$LoggerInitialized$.html"><span class="name">LoggerInitialized</span></a><span class="result"> extends <a href="Logging$$LoggerInitialized.html" class="extype" name="akka.event.Logging.LoggerInitialized">LoggerInitialized</a> with <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@LoggerInitialized" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging#StandardOutLogger" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="StandardOutLogger:akka.event.Logging.StandardOutLogger"></a>
+      <a id="StandardOutLogger:StandardOutLogger"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">StandardOutLogger</span><span class="result">: <a href="Logging$$StandardOutLogger.html" class="extype" name="akka.event.Logging.StandardOutLogger">StandardOutLogger</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@StandardOutLogger:akka.event.Logging.StandardOutLogger" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging.StdOutLogger" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="StdOutLogger"></a>
+      <a id="StdOutLogger:StdOutLogger"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$StdOutLogger$.html"><span class="name">StdOutLogger</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@StdOutLogger" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging.Warning" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Warning"></a>
+      <a id="Warning:Warning"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Logging$$Warning$.html"><span class="name">Warning</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@Warning" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging#WarningLevel" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="WarningLevel:akka.event.Logging.LogLevel"></a>
+      <a id="WarningLevel:LogLevel"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">WarningLevel</span><span class="result">: <a href="Logging$$LogLevel.html" class="extype" name="akka.event.Logging.LogLevel">LogLevel</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@WarningLevel:akka.event.Logging.LogLevel" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="akka.event.Logging#apply" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply(logSource:akka.actor.Actor):akka.event.DiagnosticLoggingAdapter"></a>
+      <a id="apply(Actor):DiagnosticLoggingAdapter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="params">(<span name="logSource">logSource: <a href="../actor/Actor.html" class="extype" name="akka.actor.Actor">Actor</a></span>)</span><span class="result">: <a href="DiagnosticLoggingAdapter.html" class="extype" name="akka.event.DiagnosticLoggingAdapter">DiagnosticLoggingAdapter</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@apply(logSource:akka.actor.Actor):akka.event.DiagnosticLoggingAdapter" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Obtain LoggingAdapter with MDC support for the given actor.</p><div class="fullcomment"><div class="comment cmt"><p>Obtain LoggingAdapter with MDC support for the given actor.
+Don't use it outside its specific Actor as it isn't thread safe
+</p></div></div>
+    </li><li name="akka.event.Logging#apply" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply[T](bus:akka.event.LoggingBus,logSource:T)(implicitevidence$5:akka.event.LogSource[T]):akka.event.LoggingAdapter"></a>
+      <a id="apply[T](LoggingBus,T)(LogSource[T]):LoggingAdapter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="bus">bus: <a href="LoggingBus.html" class="extype" name="akka.event.LoggingBus">LoggingBus</a></span>, <span name="logSource">logSource: <span class="extype" name="akka.event.Logging.apply.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="LogSource.html" class="extype" name="akka.event.LogSource">LogSource</a>[<span class="extype" name="akka.event.Logging.apply.T">T</span>]</span>)</span><span class="result">: <a href="LoggingAdapter.html" class="extype" name="akka.event.LoggingAdapter">LoggingAdapter</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@apply[T](bus:akka.event.LoggingBus,logSource:T)(implicitevidence$5:akka.event.LogSource[T]):akka.event.LoggingAdapter" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Obtain LoggingAdapter for the given logging bus and source object.</p><div class="fullcomment"><div class="comment cmt"><p>Obtain LoggingAdapter for the given logging bus and source object.</p><p>The source is used to identify the source of this logging channel and
+must have a corresponding implicit LogSource[T] instance in scope; by
+default these are provided for Class[_], Actor, ActorRef and String types.
+See the companion object of <a href="LogSource.html" class="extype" name="akka.event.LogSource">akka.event.LogSource</a> for details.</p><p>You can add your own rules quite easily, see <a href="LogSource.html" class="extype" name="akka.event.LogSource">akka.event.LogSource</a>.</p><p>Note that this <code>LoggingAdapter</code> will use the <a href="DefaultLoggingFilter.html" class="extype" name="akka.event.DefaultLoggingFilter">akka.event.DefaultLoggingFilter</a>,
+and not the <a href="LoggingFilter.html" class="extype" name="akka.event.LoggingFilter">akka.event.LoggingFilter</a> configured for the system
+(if different from <code>DefaultLoggingFilter</code>).
+</p></div></div>
+    </li><li name="akka.event.Logging#apply" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply[T](system:akka.actor.ActorSystem,logSource:T)(implicitevidence$3:akka.event.LogSource[T]):akka.event.LoggingAdapter"></a>
+      <a id="apply[T](ActorSystem,T)(LogSource[T]):LoggingAdapter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="system">system: <a href="../actor/ActorSystem.html" class="extype" name="akka.actor.ActorSystem">ActorSystem</a></span>, <span name="logSource">logSource: <span class="extype" name="akka.event.Logging.apply.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="LogSource.html" class="extype" name="akka.event.LogSource">LogSource</a>[<span class="extype" name="akka.event.Logging.apply.T">T</span>]</span>)</span><span class="result">: <a href="LoggingAdapter.html" class="extype" name="akka.event.LoggingAdapter">LoggingAdapter</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@apply[T](system:akka.actor.ActorSystem,logSource:T)(implicitevidence$3:akka.event.LogSource[T]):akka.event.LoggingAdapter" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Obtain LoggingAdapter for the given actor system and source object.</p><div class="fullcomment"><div class="comment cmt"><p>Obtain LoggingAdapter for the given actor system and source object. This
+will use the system’s event stream and include the system’s address in the
+log source string.</p><p><b>Do not use this if you want to supply a log category string (like
+“com.example.app.whatever”) unaltered,</b> supply <code>system.eventStream</code> in this
+case or use</p><pre>Logging(system, <span class="kw">this</span>.getClass)</pre><p>The source is used to identify the source of this logging channel and
+must have a corresponding implicit LogSource[T] instance in scope; by
+default these are provided for Class[_], Actor, ActorRef and String types.
+See the companion object of <a href="LogSource.html" class="extype" name="akka.event.LogSource">akka.event.LogSource</a> for details.</p><p>You can add your own rules quite easily, see <a href="LogSource.html" class="extype" name="akka.event.LogSource">akka.event.LogSource</a>.
+</p></div></div>
+    </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asInstanceOf[T0]:T0"></a>
+      <a id="asInstanceOf[T0]:T0"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="akka.event.Logging#classFor" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="classFor(level:akka.event.Logging.LogLevel):Class[_&lt;:akka.event.Logging.LogEvent]"></a>
+      <a id="classFor(LogLevel):Class[_&lt;:LogEvent]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">classFor</span><span class="params">(<span name="level">level: <a href="Logging$$LogLevel.html" class="extype" name="akka.event.Logging.LogLevel">LogLevel</a></span>)</span><span class="result">: <span class="extype" name="scala.Predef.Class">Class</span>[_ &lt;: <a href="Logging$$LogEvent.html" class="extype" name="akka.event.Logging.LogEvent">LogEvent</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@classFor(level:akka.event.Logging.LogLevel):Class[_&lt;:akka.event.Logging.LogEvent]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Returns the event class associated with the given LogLevel
+</p>
+    </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="clone():Object"></a>
+      <a id="clone():AnyRef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@clone():Object" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="akka.event.Logging#emptyMDC" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="emptyMDC:akka.event.Logging.MDC"></a>
+      <a id="emptyMDC:MDC"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">emptyMDC</span><span class="result">: <a href="#MDC=Map[String,Any]" class="extmbr" name="akka.event.Logging.MDC">MDC</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@emptyMDC:akka.event.Logging.MDC" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eq(x$1:AnyRef):Boolean"></a>
+      <a id="eq(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a>
+      <a id="equals(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@equals(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <a id="finalize():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@finalize():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getClass():Class[_]"></a>
+      <a id="getClass():Class[_]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@getClass():Class[_]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="akka.event.Logging#getLogger" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getLogger(logSource:akka.actor.UntypedActor):akka.event.DiagnosticLoggingAdapter"></a>
+      <a id="getLogger(UntypedActor):DiagnosticLoggingAdapter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getLogger</span><span class="params">(<span name="logSource">logSource: <a href="../actor/UntypedActor.html" class="extype" name="akka.actor.UntypedActor">UntypedActor</a></span>)</span><span class="result">: <a href="DiagnosticLoggingAdapter.html" class="extype" name="akka.event.DiagnosticLoggingAdapter">DiagnosticLoggingAdapter</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@getLogger(logSource:akka.actor.UntypedActor):akka.event.DiagnosticLoggingAdapter" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Obtain LoggingAdapter with MDC support for the given actor.</p><div class="fullcomment"><div class="comment cmt"><p>Obtain LoggingAdapter with MDC support for the given actor.
+Don't use it outside its specific Actor as it isn't thread safe
+</p></div></div>
+    </li><li name="akka.event.Logging#getLogger" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getLogger(logSource:akka.actor.Actor):akka.event.DiagnosticLoggingAdapter"></a>
+      <a id="getLogger(Actor):DiagnosticLoggingAdapter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getLogger</span><span class="params">(<span name="logSource">logSource: <a href="../actor/Actor.html" class="extype" name="akka.actor.Actor">Actor</a></span>)</span><span class="result">: <a href="DiagnosticLoggingAdapter.html" class="extype" name="akka.event.DiagnosticLoggingAdapter">DiagnosticLoggingAdapter</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@getLogger(logSource:akka.actor.Actor):akka.event.DiagnosticLoggingAdapter" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Obtain LoggingAdapter with MDC support for the given actor.</p><div class="fullcomment"><div class="comment cmt"><p>Obtain LoggingAdapter with MDC support for the given actor.
+Don't use it outside its specific Actor as it isn't thread safe
+</p></div></div>
+    </li><li name="akka.event.Logging#getLogger" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getLogger(bus:akka.event.LoggingBus,logSource:AnyRef):akka.event.LoggingAdapter"></a>
+      <a id="getLogger(LoggingBus,AnyRef):LoggingAdapter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getLogger</span><span class="params">(<span name="bus">bus: <a href="LoggingBus.html" class="extype" name="akka.event.LoggingBus">LoggingBus</a></span>, <span name="logSource">logSource: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>)</span><span class="result">: <a href="LoggingAdapter.html" class="extype" name="akka.event.LoggingAdapter">LoggingAdapter</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@getLogger(bus:akka.event.LoggingBus,logSource:AnyRef):akka.event.LoggingAdapter" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Obtain LoggingAdapter for the given logging bus and source object.</p><div class="fullcomment"><div class="comment cmt"><p>Obtain LoggingAdapter for the given logging bus and source object.</p><p>The source is used to identify the source of this logging channel and
+must have a corresponding implicit LogSource[T] instance in scope; by
+default these are provided for Class[_], Actor, ActorRef and String types.
+See the companion object of <a href="LogSource.html" class="extype" name="akka.event.LogSource">akka.event.LogSource</a> for details.</p><p>Note that this <code>LoggingAdapter</code> will use the <a href="DefaultLoggingFilter.html" class="extype" name="akka.event.DefaultLoggingFilter">akka.event.DefaultLoggingFilter</a>,
+and not the <a href="LoggingFilter.html" class="extype" name="akka.event.LoggingFilter">akka.event.LoggingFilter</a> configured for the system
+(if different from <code>DefaultLoggingFilter</code>).
+</p></div></div>
+    </li><li name="akka.event.Logging#getLogger" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getLogger(system:akka.actor.ActorSystem,logSource:AnyRef):akka.event.LoggingAdapter"></a>
+      <a id="getLogger(ActorSystem,AnyRef):LoggingAdapter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getLogger</span><span class="params">(<span name="system">system: <a href="../actor/ActorSystem.html" class="extype" name="akka.actor.ActorSystem">ActorSystem</a></span>, <span name="logSource">logSource: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>)</span><span class="result">: <a href="LoggingAdapter.html" class="extype" name="akka.event.LoggingAdapter">LoggingAdapter</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@getLogger(system:akka.actor.ActorSystem,logSource:AnyRef):akka.event.LoggingAdapter" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Obtain LoggingAdapter for the given actor system and source object.</p><div class="fullcomment"><div class="comment cmt"><p>Obtain LoggingAdapter for the given actor system and source object. This
+will use the system’s event stream and include the system’s address in the
+log source string.</p><p><b>Do not use this if you want to supply a log category string (like
+“com.example.app.whatever”) unaltered,</b> supply <code>system.eventStream</code> in this
+case or use</p><pre>Logging.getLogger(system, <span class="kw">this</span>.getClass());</pre><p>The source is used to identify the source of this logging channel and
+must have a corresponding implicit LogSource[T] instance in scope; by
+default these are provided for Class[_], Actor, ActorRef and String types.
+See the companion object of <a href="LogSource.html" class="extype" name="akka.event.LogSource">akka.event.LogSource</a> for details.
+</p></div></div>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
+      <a id="hashCode():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Int" class="extype" target="_top">Int</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@hashCode():Int" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="akka.event.Logging#levelFor" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="levelFor(eventClass:Class[_&lt;:akka.event.Logging.LogEvent]):akka.event.Logging.LogLevel"></a>
+      <a id="levelFor(Class[_&lt;:LogEvent]):LogLevel"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">levelFor</span><span class="params">(<span name="eventClass">eventClass: <span class="extype" name="scala.Predef.Class">Class</span>[_ &lt;: <a href="Logging$$LogEvent.html" class="extype" name="akka.event.Logging.LogEvent">LogEvent</a>]</span>)</span><span class="result">: <a href="Logging$$LogLevel.html" class="extype" name="akka.event.Logging.LogLevel">LogLevel</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@levelFor(eventClass:Class[_&lt;:akka.event.Logging.LogEvent]):akka.event.Logging.LogLevel" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Returns the LogLevel associated with the given event class.</p><div class="fullcomment"><div class="comment cmt"><p>Returns the LogLevel associated with the given event class.
+Defaults to DebugLevel.
+</p></div></div>
+    </li><li name="akka.event.Logging#levelFor" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="levelFor(s:String):Option[akka.event.Logging.LogLevel]"></a>
+      <a id="levelFor(String):Option[LogLevel]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">levelFor</span><span class="params">(<span name="s">s: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Option" class="extype" target="_top">Option</a>[<a href="Logging$$LogLevel.html" class="extype" name="akka.event.Logging.LogLevel">LogLevel</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@levelFor(s:String):Option[akka.event.Logging.LogLevel]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Returns the LogLevel associated with the given string,
+valid inputs are upper or lowercase (not mixed) versions of:
+&quot;error&quot;, &quot;warning&quot;, &quot;info&quot; and &quot;debug&quot;
+</p>
+    </li><li name="akka.event.Logging#loggerInitialized" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="loggerInitialized():akka.event.Logging.LoggerInitialized.type"></a>
+      <a id="loggerInitialized():LoggerInitialized.type"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">loggerInitialized</span><span class="params">()</span><span class="result">: <a href="Logging$$LoggerInitialized$.html" class="extype" name="akka.event.Logging.LoggerInitialized">LoggerInitialized</a>.type</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@loggerInitialized():akka.event.Logging.LoggerInitialized.type" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Java API to create a LoggerInitialized message.</p>
+    </li><li name="akka.event.Logging#messageClassName" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="messageClassName(message:Any):String"></a>
+      <a id="messageClassName(Any):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">messageClassName</span><span class="params">(<span name="message">message: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@messageClassName(message:Any):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Class name representation of a message.</p><div class="fullcomment"><div class="comment cmt"><p>Class name representation of a message.
+<code>ActorSelectionMessage</code> representation includes class name of
+wrapped message.
+</p></div></div>
+    </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ne(x$1:AnyRef):Boolean"></a>
+      <a id="ne(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="akka.event.Logging#noCause" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="noCause:akka.event.Logging.Error.NoCause.type"></a>
+      <a id="noCause:NoCause.type"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">noCause</span><span class="result">: <a href="Logging$$Error$$NoCause$.html" class="extype" name="akka.event.Logging.Error.NoCause">NoCause</a>.type</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@noCause:akka.event.Logging.Error.NoCause.type" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="scala.AnyRef#notify" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notify():Unit"></a>
+      <a id="notify():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@notify():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notifyAll" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notifyAll():Unit"></a>
+      <a id="notifyAll():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@notifyAll():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="akka.event.Logging#simpleName" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="simpleName(clazz:Class[_]):String"></a>
+      <a id="simpleName(Class[_]):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">simpleName</span><span class="params">(<span name="clazz">clazz: <span class="extype" name="scala.Predef.Class">Class</span>[_]</span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@simpleName(clazz:Class[_]):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Returns a 'safe' getSimpleName for the provided Class</p><div class="fullcomment"><div class="comment cmt"><p>Returns a 'safe' getSimpleName for the provided Class</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>the simple name of the given Class</p></dd></dl></div>
+    </li><li name="akka.event.Logging#simpleName" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="simpleName(obj:AnyRef):String"></a>
+      <a id="simpleName(AnyRef):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">simpleName</span><span class="params">(<span name="obj">obj: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@simpleName(obj:AnyRef):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Returns a 'safe' getSimpleName for the provided object's Class</p><div class="fullcomment"><div class="comment cmt"><p>Returns a 'safe' getSimpleName for the provided object's Class</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>the simple name of the given object's Class</p></dd></dl></div>
+    </li><li name="akka.event.Logging#stackTraceFor" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="stackTraceFor(e:Throwable):String"></a>
+      <a id="stackTraceFor(Throwable):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">stackTraceFor</span><span class="params">(<span name="e">e: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@stackTraceFor(e:Throwable):String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Returns the StackTrace for the given Throwable as a String
+</p>
+    </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
+      <a id="synchronized[T0](⇒T0):T0"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toString():String"></a>
+      <a id="toString():String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@toString():String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <a id="wait():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@wait():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long,x$2:Int):Unit"></a>
+      <a id="wait(Long,Int):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Long" class="extype" target="_top">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long):Unit"></a>
+      <a id="wait(Long):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Long" class="extype" target="_top">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@wait(x$1:Long):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="akka.event.Logging#withMarker" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="withMarker(logSource:akka.actor.Actor):akka.event.DiagnosticMarkerBusLoggingAdapter"></a>
+      <a id="withMarker(Actor):DiagnosticMarkerBusLoggingAdapter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">withMarker</span><span class="params">(<span name="logSource">logSource: <a href="../actor/Actor.html" class="extype" name="akka.actor.Actor">Actor</a></span>)</span><span class="result">: <a href="DiagnosticMarkerBusLoggingAdapter.html" class="extype" name="akka.event.DiagnosticMarkerBusLoggingAdapter">DiagnosticMarkerBusLoggingAdapter</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@withMarker(logSource:akka.actor.Actor):akka.event.DiagnosticMarkerBusLoggingAdapter" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Obtain LoggingAdapter with marker and MDC support for the given actor.</p><div class="fullcomment"><div class="comment cmt"><p>Obtain LoggingAdapter with marker and MDC support for the given actor.
+Don't use it outside its specific Actor as it isn't thread safe
+</p></div></div>
+    </li><li name="akka.event.Logging#withMarker" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="withMarker[T](bus:akka.event.LoggingBus,logSource:T)(implicitevidence$6:akka.event.LogSource[T]):akka.event.MarkerLoggingAdapter"></a>
+      <a id="withMarker[T](LoggingBus,T)(LogSource[T]):MarkerLoggingAdapter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">withMarker</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="bus">bus: <a href="LoggingBus.html" class="extype" name="akka.event.LoggingBus">LoggingBus</a></span>, <span name="logSource">logSource: <span class="extype" name="akka.event.Logging.withMarker.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="LogSource.html" class="extype" name="akka.event.LogSource">LogSource</a>[<span class="extype" name="akka.event.Logging.withMarker.T">T</span>]</span>)</span><span class="result">: <a href="MarkerLoggingAdapter.html" class="extype" name="akka.event.MarkerLoggingAdapter">MarkerLoggingAdapter</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@withMarker[T](bus:akka.event.LoggingBus,logSource:T)(implicitevidence$6:akka.event.LogSource[T]):akka.event.MarkerLoggingAdapter" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Obtain LoggingAdapter for the given logging bus and source object.</p><div class="fullcomment"><div class="comment cmt"><p>Obtain LoggingAdapter for the given logging bus and source object.</p><p>The source is used to identify the source of this logging channel and
+must have a corresponding implicit LogSource[T] instance in scope; by
+default these are provided for Class[_], Actor, ActorRef and String types.
+See the companion object of <a href="LogSource.html" class="extype" name="akka.event.LogSource">akka.event.LogSource</a> for details.</p><p>You can add your own rules quite easily, see <a href="LogSource.html" class="extype" name="akka.event.LogSource">akka.event.LogSource</a>.</p><p>Note that this <code>LoggingAdapter</code> will use the <a href="DefaultLoggingFilter.html" class="extype" name="akka.event.DefaultLoggingFilter">akka.event.DefaultLoggingFilter</a>,
+and not the <a href="LoggingFilter.html" class="extype" name="akka.event.LoggingFilter">akka.event.LoggingFilter</a> configured for the system
+(if different from <code>DefaultLoggingFilter</code>).
+</p></div></div>
+    </li><li name="akka.event.Logging#withMarker" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="withMarker[T](system:akka.actor.ActorSystem,logSource:T)(implicitevidence$4:akka.event.LogSource[T]):akka.event.MarkerLoggingAdapter"></a>
+      <a id="withMarker[T](ActorSystem,T)(LogSource[T]):MarkerLoggingAdapter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">withMarker</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="system">system: <a href="../actor/ActorSystem.html" class="extype" name="akka.actor.ActorSystem">ActorSystem</a></span>, <span name="logSource">logSource: <span class="extype" name="akka.event.Logging.withMarker.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="LogSource.html" class="extype" name="akka.event.LogSource">LogSource</a>[<span class="extype" name="akka.event.Logging.withMarker.T">T</span>]</span>)</span><span class="result">: <a href="MarkerLoggingAdapter.html" class="extype" name="akka.event.MarkerLoggingAdapter">MarkerLoggingAdapter</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#akka.event.Logging$@withMarker[T](system:akka.actor.ActorSystem,logSource:T)(implicitevidence$4:akka.event.LogSource[T]):akka.event.MarkerLoggingAdapter" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Obtain LoggingAdapter with additional &quot;marker&quot; support (which some logging frameworks are able to utilise)
+for the given actor system and source object.</p><div class="fullcomment"><div class="comment cmt"><p>Obtain LoggingAdapter with additional &quot;marker&quot; support (which some logging frameworks are able to utilise)
+for the given actor system and source object. This will use the system’s event stream and include the system’s
+address in the log source string.</p><p><b>Do not use this if you want to supply a log category string (like
+“com.example.app.whatever”) unaltered,</b> supply <code>system.eventStream</code> in this
+case or use</p><pre>Logging(system, <span class="kw">this</span>.getClass)</pre><p>The source is used to identify the source of this logging channel and
+must have a corresponding implicit LogSource[T] instance in scope; by
+default these are provided for Class[_], Actor, ActorRef and String types.
+See the companion object of <a href="LogSource.html" class="extype" name="akka.event.LogSource">akka.event.LogSource</a> for details.</p><p>You can add your own rules quite easily, see <a href="LogSource.html" class="extype" name="akka.event.LogSource">akka.event.LogSource</a>.
+</p></div></div>
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.11/index.html#scala.Any" class="extype" target="_top">Any</a></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

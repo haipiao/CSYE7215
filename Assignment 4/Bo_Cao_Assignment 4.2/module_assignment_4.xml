@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_assignment_4" default="compile.module.assignment_4">
+  <dirname property="module.assignment_4.basedir" file="${ant.file.module_assignment_4}"/>
+  
+  
+  <property name="compiler.args.assignment_4" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="assignment_4.output.dir" value="${module.assignment_4.basedir}/out/production/Assignment 4"/>
+  <property name="assignment_4.testoutput.dir" value="${module.assignment_4.basedir}/out/test/Assignment 4"/>
+  
+  <path id="assignment_4.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="assignment_4.module.production.classpath"/>
+  
+  <path id="assignment_4.runtime.production.module.classpath">
+    <pathelement location="${assignment_4.output.dir}"/>
+  </path>
+  
+  <path id="assignment_4.module.classpath">
+    <pathelement location="${assignment_4.output.dir}"/>
+  </path>
+  
+  <path id="assignment_4.runtime.module.classpath">
+    <pathelement location="${assignment_4.testoutput.dir}"/>
+    <pathelement location="${assignment_4.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.assignment_4">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.assignment_4">
+    <patternset refid="excluded.from.module.assignment_4"/>
+  </patternset>
+  
+  <path id="assignment_4.module.sourcepath">
+    <dirset dir="${module.assignment_4.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.assignment_4" depends="compile.module.assignment_4.production,compile.module.assignment_4.tests" description="Compile module Assignment 4"/>
+  
+  <target name="compile.module.assignment_4.production" description="Compile module Assignment 4; production classes">
+    <mkdir dir="${assignment_4.output.dir}"/>
+    <javac destdir="${assignment_4.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.assignment_4}"/>
+      <bootclasspath refid="assignment_4.module.bootclasspath"/>
+      <classpath refid="assignment_4.module.production.classpath"/>
+      <src refid="assignment_4.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.assignment_4"/>
+    </javac>
+    
+    <copy todir="${assignment_4.output.dir}">
+      <fileset dir="${module.assignment_4.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.assignment_4.tests" depends="compile.module.assignment_4.production" description="compile module Assignment 4; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.assignment_4" description="cleanup module">
+    <delete dir="${assignment_4.output.dir}"/>
+    <delete dir="${assignment_4.testoutput.dir}"/>
+  </target>
+</project>
